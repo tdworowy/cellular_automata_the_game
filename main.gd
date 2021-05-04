@@ -2,6 +2,7 @@ extends Spatial
 
 const scale_x = 2
 const scale_z = 2
+const scale_y = 3
 const red = Color( 1, 0, 0, 1 )
 
 
@@ -11,7 +12,7 @@ func generate_grid(x:int,z:int, prob_of_one:float):
 		var row = []
 		for j in range(z):
 			randomize()
-			var rand_int = rand_range(1,10) 
+			var rand_int = (randi() % 10)  + 1 
 			if rand_int <= int(prob_of_one * 10):
 				row.append(1)
 			else:
@@ -26,7 +27,7 @@ func generate_box(material:SpatialMaterial,x:int=1,y:int=1,z:int=1):
 	var box = CSGBox.new() 
 	
 	static_body.scale.x = scale_x 
-	static_body.scale.y = 5
+	static_body.scale.y = scale_y
 	static_body.scale.z = scale_z
 	
 	static_body.translation.x = x
@@ -55,7 +56,7 @@ func _ready():
 	for row in grid:
 		for value in row:
 			if value == 1:
-				var box = generate_box(material,x,1,z)
+				var box = generate_box(material,x,3,z)
 				self.add_child(box)
 			x = x - (scale_x * 2)
 		x = floor_scale_x
