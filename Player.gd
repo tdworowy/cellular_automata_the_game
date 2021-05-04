@@ -1,7 +1,7 @@
 extends KinematicBody
 
-var moveSpeed:float = 10
-var jumpForce:float = 10
+var moveSpeed:float = 40
+var jumpForce:float = 20
 var gravity:float=12
 
 var minLookAngle:float = -90
