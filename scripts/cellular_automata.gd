@@ -5,6 +5,14 @@ static func get_game_of_live_rules() -> Dictionary:
 			"1_2": 1
 			}
 
+static func get_mazectric_rules() -> Dictionary:
+	return {
+		"0_3": 1,
+		"1_1": 1,
+		"1_2": 1,
+		"1_3": 1,
+		"1_4": 1,
+	}
 static func generate_grid(x:int,z:int, prob_of_one:float):
 		var grid = []
 		for i in range(x):

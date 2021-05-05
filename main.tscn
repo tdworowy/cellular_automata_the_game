@@ -12,7 +12,7 @@ albedo_color = Color( 0.168627, 0.160784, 0.207843, 1 )
 script = ExtResource( 2 )
 
 [node name="floor" type="StaticBody" parent="."]
-transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0 )
+transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="floor"]
 shape = SubResource( 1 )
