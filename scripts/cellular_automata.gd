@@ -12,8 +12,9 @@ static func get_mazectric_rules() -> Dictionary:
 		"1_2": 1,
 		"1_3": 1,
 		"1_4": 1,
-	}
-static func generate_grid(x:int,z:int, prob_of_one:float):
+		}
+
+static func generate_grid(x:int, z:int, prob_of_one:float):
 		var grid = []
 		for i in range(x):
 			var row = []
@@ -27,18 +28,16 @@ static func generate_grid(x:int,z:int, prob_of_one:float):
 			grid.append(row)
 		return grid			
 
-
-
-static func count_colored_neighbours(x: int, z: int,grid_x_axis: int,grid_z_asix:int,grid:Array )->int:
+static func count_colored_neighbours(x: int, z: int,grid_x_axis: int, grid_z_axis:int, grid:Array )->int:
 	var colored_neighbours = 0
 	for i in range((x - 1) % grid_x_axis, (x + 2) % grid_x_axis):
-		for j in range((z - 1) % grid_z_asix, (z + 2) % grid_z_asix):
+		for j in range((z - 1) % grid_z_axis, (z + 2) % grid_z_axis):
 			if grid[i][j] == 1 and [i, j] != [x, z]: 
 				colored_neighbours += 1
 	return colored_neighbours
 
 
-static func update_grid_two_d(grid: Array,grid_x_axis: int,grid_z_asix:int, rules: Dictionary):
+static func update_grid_two_d(grid: Array, grid_x_axis: int, grid_z_asix:int, rules: Dictionary):
 	var new_grid =  [] + grid
 	for i in range(grid.size()):
 		for j in range(grid[i].size()):

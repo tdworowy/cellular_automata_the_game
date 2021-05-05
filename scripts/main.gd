@@ -38,23 +38,24 @@ func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
 	colision_shape.add_child(box)
 	static_body.add_child(colision_shape)
 	
-	static_body.add_to_group("Boxes")
+	static_body.add_to_group(str(x)+"_"+str(z))
 	
 	return static_body
-
-func clear_boxes():
-	var boxes = get_tree().get_nodes_in_group("Boxes")
-	for box in boxes:
-		box.queue_free()
 
 func generate_boxes(grid:Array, floor_scale_x:int, floor_scale_z:int, material):
 	var x = floor_scale_x
 	var z = floor_scale_z
 	for row in grid:
 		for value in row:
+			var nodes = get_tree().get_nodes_in_group(str(x)+"_"+str(z))
 			if value == 1:
-				var box = generate_box(material, x, 3, z)
-				self.add_child(box)
+				if nodes.size() == 0:
+					var box = generate_box(material, x, 3, z)
+					self.add_child(box)
+			else:
+				if nodes.size() != 0:
+					for node in nodes:
+						node.queue_free()
 			x = x - (scale_x * 2)
 		x = floor_scale_x
 		z = z - (scale_z * 2)
@@ -76,7 +77,6 @@ func _process(delta):
 	if counter == 200:
 		var new_grid =  cellular_automata.update_grid_two_d(grid, grid_x, grid_z, cellular_automata.get_game_of_live_rules())
 		
-		clear_boxes()
 		generate_boxes(new_grid, floor_scale_x, floor_scale_z, material)
 		grid = new_grid
 		counter = 0
