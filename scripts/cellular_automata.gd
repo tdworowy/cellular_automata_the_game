@@ -14,6 +14,69 @@ static func get_mazectric_rules() -> Dictionary:
 		"1_4": 1,
 		}
 
+static func get_amoeba_rules() -> Dictionary:
+	return {
+			"0_3": 1,
+			"0_5": 1,
+			"0_7": 1,
+			"1_1": 1,
+			"1_3": 1,
+			"1_5": 1,
+			"1_8": 1
+		}
+		
+static func get_2x2_rules() -> Dictionary:
+	return {
+			"0_3": 1,
+			"0_6": 1,
+			"1_1": 1,
+			"1_2": 1,
+			"1_5": 1,
+		}
+		
+static func get_34_live_rules() -> Dictionary:
+	return {
+		"0_3": 1,
+		"0_4": 1,
+		"1_3": 1,
+		"1_4": 1
+		}
+static func get_coagulations_rules() -> Dictionary:
+	return {
+		"0_3": 1,
+		"0_7": 1,
+		"0_8": 1,
+		"1_2": 1,
+		"1_3": 1,
+		"1_5": 1,
+		"1_6": 1,
+		"1_7": 1,
+		"1_8": 1,
+		}
+		
+static func get_move_rules() -> Dictionary:
+	return {
+		"0_3": 1,
+		"0_6": 1,
+		"0_8": 1,
+		"1_2": 1,
+		"1_4": 1,
+		"1_5": 1,
+		}
+
+static func get_walled_cities_rules() -> Dictionary:
+	return {
+		"0_4": 1,
+		"0_5": 1,
+		"0_6": 1,
+		"0_7": 1,
+		"0_8": 1,
+		"1_2": 1,
+		"1_3": 1,
+		"1_4": 1,
+		"1_5": 1,
+}
+		
 static func generate_grid(x:int, z:int, prob_of_one:float):
 		var grid = []
 		for i in range(x):

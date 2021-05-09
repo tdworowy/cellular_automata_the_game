@@ -14,10 +14,10 @@ var grid_x: int
 var grid_z: int
 
 var material: SpatialMaterial
-
 var grid: Array
+var rule: Dictionary
 
-var counter:int = 0
+onready var current_rule:Label = get_node("current_rule")
 
 func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
 	var static_body = StaticBody.new()
@@ -61,6 +61,8 @@ func generate_boxes(grid:Array, floor_scale_x:int, floor_scale_z:int, material):
 		z = z - (scale_z * 2)
 
 func _ready():
+	rule = cellular_automata.get_game_of_live_rules()
+	current_rule.set_text("Rule: game of live")
 	material = SpatialMaterial.new()
 	material.albedo_color = red
 	
@@ -74,11 +76,42 @@ func _ready():
 	generate_boxes(grid, floor_scale_x, floor_scale_z, material)
 
 func _process(delta):
-	if counter == 200:
-		var new_grid =  cellular_automata.update_grid_two_d(grid, grid_x, grid_z, cellular_automata.get_game_of_live_rules())
+	if Input.is_action_pressed("game_of_live"):
+		current_rule.set_text("Rule: game of live")
+		rule = cellular_automata.get_game_of_live_rules()
+	
+	if Input.is_action_pressed("mazectric"):
+		current_rule.set_text("Rule: mazectric")
+		rule = cellular_automata.get_mazectric_rules()
+	
+	if Input.is_action_pressed("amoeba"):
+		current_rule.set_text("Rule: amoeba")
+		rule = cellular_automata.get_amoeba_rules()
 		
+	if Input.is_action_pressed("2x2"):
+		current_rule.set_text("Rule: 2x2")
+		rule = cellular_automata.get_2x2_rules()
+		
+	if Input.is_action_pressed("34_live"):
+		current_rule.set_text("Rule: 34 live")
+		rule = cellular_automata.get_34_live_rules()
+	
+	if Input.is_action_pressed("coagulations"):
+		current_rule.set_text("Rule: coagulations")
+		rule = cellular_automata.get_coagulations_rules()
+		
+	if Input.is_action_pressed("move"):
+		current_rule.set_text("Rule: move")
+		rule = cellular_automata.get_move_rules()
+	
+	if Input.is_action_pressed("walled_cities"):
+		current_rule.set_text("Rule: walled cities")
+		rule = cellular_automata.get_walled_cities_rules()
+	
+	
+
+func _on_Timer_timeout():
+		var new_grid =  cellular_automata.update_grid_two_d(grid, grid_x, grid_z, 
+		rule)
 		generate_boxes(new_grid, floor_scale_x, floor_scale_z, material)
 		grid = new_grid
-		counter = 0
-	else:
-		counter +=1
