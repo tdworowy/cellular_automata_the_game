@@ -36,7 +36,7 @@ func _physics_process(delta):
 	var right = global_transform.basis.x;
 	var up = global_transform.basis.y;
 	
-	var relativeDirection = (forward * input.y + right*input.x + input.z * up);
+	var relativeDirection = (forward * input.y + right * input.x + input.z * up);
 	velocity.x = relativeDirection.x * moveSpeed
 	velocity.z = relativeDirection.z * moveSpeed
 	velocity.y = relativeDirection.y * moveSpeed	

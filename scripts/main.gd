@@ -71,23 +71,7 @@ func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
 		x = floor_scale_x
 		z = z - (scale_z * 2)
 
-func _ready():
-	rule = cellular_automata.get_game_of_live_rules()
-	current_rule.set_text("Rule: game of live")
-	material = SpatialMaterial.new()
-	material.albedo_color = red
-	
-	floor_scale_x = $floor.scale.x
-	floor_scale_z = $floor.scale.z
-
-	grid_x = floor_scale_x/scale_x
-	grid_z = floor_scale_z/scale_z
-	
-	grid = cellular_automata.generate_grid(grid_x, grid_z, 0.4)
-	generate_boxes(grid, floor_scale_x, floor_scale_z, material)
-	set_visibility(grid, floor_scale_x, floor_scale_z)
-
-func _process(delta):
+func check_rules_imput():
 	if Input.is_action_pressed("game_of_live"):
 		current_rule.set_text("Rule: game of live")
 		rule = cellular_automata.get_game_of_live_rules()
@@ -119,6 +103,26 @@ func _process(delta):
 	if Input.is_action_pressed("walled_cities"):
 		current_rule.set_text("Rule: walled cities")
 		rule = cellular_automata.get_walled_cities_rules()
+
+func _ready():
+	rule = cellular_automata.get_game_of_live_rules()
+	current_rule.set_text("Rule: game of live")
+	
+	material = SpatialMaterial.new()
+	material.albedo_color = red
+	
+	floor_scale_x = $floor.scale.x
+	floor_scale_z = $floor.scale.z
+
+	grid_x = floor_scale_x/scale_x
+	grid_z = floor_scale_z/scale_z
+	
+	grid = cellular_automata.generate_grid(grid_x, grid_z, 0.1)
+	generate_boxes(grid, floor_scale_x, floor_scale_z, material)
+	set_visibility(grid, floor_scale_x, floor_scale_z)
+
+func _process(delta):
+	check_rules_imput()
 	
 	
 
