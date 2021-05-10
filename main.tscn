@@ -12,7 +12,7 @@ albedo_color = Color( 0.168627, 0.160784, 0.207843, 1 )
 script = ExtResource( 2 )
 
 [node name="floor" type="StaticBody" parent="."]
-transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0, 0 )
+transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="floor"]
 shape = SubResource( 1 )
@@ -24,7 +24,6 @@ material = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105713, 8.21006, 1.32788 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
 autostart = true
 
 [node name="current_rule" type="Label" parent="."]

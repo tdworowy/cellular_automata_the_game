@@ -47,15 +47,26 @@ func generate_boxes(grid:Array, floor_scale_x:int, floor_scale_z:int, material):
 	var z = floor_scale_z
 	for row in grid:
 		for value in row:
-			var nodes = get_tree().get_nodes_in_group(str(x)+"_"+str(z))
-			if value == 1:
-				if nodes.size() == 0:
-					var box = generate_box(material, x, 3, z)
-					self.add_child(box)
-			else:
-				if nodes.size() != 0:
-					for node in nodes:
-						node.queue_free()
+			var box = generate_box(material, x, 3, z)
+			self.add_child(box)
+			x = x - (scale_x * 2)
+		x = floor_scale_x
+		z = z - (scale_z * 2)
+		
+func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
+	var x = floor_scale_x
+	var z = floor_scale_z
+	for row in grid:
+		for value in row:
+			var node = get_tree().get_nodes_in_group(str(x)+"_"+str(z))[0]
+			
+			if value == 0 and node.is_visible():
+				node.visible = false
+				node.get_children()[0].disabled = true 
+			
+			if value == 1 and !node.is_visible():
+				node.visible = true
+				node.get_children()[0].disabled = false 
 			x = x - (scale_x * 2)
 		x = floor_scale_x
 		z = z - (scale_z * 2)
@@ -74,6 +85,7 @@ func _ready():
 	
 	grid = cellular_automata.generate_grid(grid_x, grid_z, 0.4)
 	generate_boxes(grid, floor_scale_x, floor_scale_z, material)
+	set_visibility(grid, floor_scale_x, floor_scale_z)
 
 func _process(delta):
 	if Input.is_action_pressed("game_of_live"):
@@ -111,7 +123,7 @@ func _process(delta):
 	
 
 func _on_Timer_timeout():
-		var new_grid =  cellular_automata.update_grid_two_d(grid, grid_x, grid_z, 
+		var new_grid = cellular_automata.update_grid_two_d(grid, grid_x, grid_z, 
 		rule)
-		generate_boxes(new_grid, floor_scale_x, floor_scale_z, material)
+		set_visibility(new_grid, floor_scale_x, floor_scale_z)
 		grid = new_grid
