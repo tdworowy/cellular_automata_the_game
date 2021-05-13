@@ -38,4 +38,37 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="menu" type="Panel" parent="."]
+visible = false
+margin_left = 437.015
+margin_top = 159.515
+margin_right = 624.015
+margin_bottom = 281.515
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="game of live" type="MenuButton" parent="menu"]
+margin_left = 20.7857
+margin_top = -1.70911
+margin_right = 165.786
+margin_bottom = 59.2909
+text = "Game of live"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mazectric" type="MenuButton" parent="menu"]
+margin_left = 22.6939
+margin_top = 55.102
+margin_right = 167.694
+margin_bottom = 116.102
+focus_mode = 2
+text = "Mazectric"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

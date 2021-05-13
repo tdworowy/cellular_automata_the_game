@@ -18,6 +18,7 @@ var grid: Array
 var rule: Dictionary
 
 onready var current_rule:Label = get_node("current_rule")
+onready var menu:Panel = get_node("menu")
 
 func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
 	var static_body = StaticBody.new()
@@ -56,15 +57,19 @@ func generate_boxes(grid:Array, floor_scale_x:int, floor_scale_z:int, material):
 func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
 	var x = floor_scale_x
 	var z = floor_scale_z
+	var node
+	var visibility
+	 
 	for row in grid:
 		for value in row:
-			var node = get_tree().get_nodes_in_group(str(x)+"_"+str(z))[0]
+			node = get_tree().get_nodes_in_group(str(x)+"_"+str(z))[0]
+			visibility = node.is_visible()
 			
-			if value == 0 and node.is_visible():
+			if value == 0 and visibility:
 				node.visible = false
 				node.get_children()[0].disabled = true 
 			
-			if value == 1 and !node.is_visible():
+			if value == 1 and !visibility:
 				node.visible = true
 				node.get_children()[0].disabled = false 
 			x = x - (scale_x * 2)
@@ -72,6 +77,7 @@ func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
 		z = z - (scale_z * 2)
 
 func check_rules_imput():
+	#TODO move it to menu
 	if Input.is_action_pressed("game_of_live"):
 		current_rule.set_text("Rule: game of live")
 		rule = cellular_automata.get_game_of_live_rules()
@@ -103,6 +109,13 @@ func check_rules_imput():
 	if Input.is_action_pressed("walled_cities"):
 		current_rule.set_text("Rule: walled cities")
 		rule = cellular_automata.get_walled_cities_rules()
+		
+	if Input.is_action_pressed("menu"):
+		if (menu.is_visible()):
+			# TODO add mouse to menu 
+			menu.visible = false
+		else:
+			menu.visible = true
 
 func _ready():
 	rule = cellular_automata.get_game_of_live_rules()
