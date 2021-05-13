@@ -40,19 +40,45 @@ __meta__ = {
 
 [node name="menu" type="Panel" parent="."]
 visible = false
-margin_left = 437.015
-margin_top = 159.515
-margin_right = 624.015
-margin_bottom = 281.515
+margin_left = 423.0
+margin_top = 23.0
+margin_right = 610.0
+margin_bottom = 340.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="walled_cities" type="MenuButton" parent="menu"]
+margin_left = 24.9501
+margin_top = 227.337
+margin_right = 169.95
+margin_bottom = 288.337
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "Walled cities"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="amoeba" type="MenuButton" parent="menu"]
+margin_left = 11.2587
+margin_top = 70.519
+margin_right = 156.259
+margin_bottom = 131.519
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "Amoeba"
+switch_on_hover = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="game of live" type="MenuButton" parent="menu"]
-margin_left = 20.7857
-margin_top = -1.70911
-margin_right = 165.786
-margin_bottom = 59.2909
+margin_left = 24.2045
+margin_top = 9.77255
+margin_right = 169.205
+margin_bottom = 55.7726
 text = "Game of live"
 switch_on_hover = true
 __meta__ = {
@@ -60,12 +86,64 @@ __meta__ = {
 }
 
 [node name="mazectric" type="MenuButton" parent="menu"]
-margin_left = 22.6939
-margin_top = 55.102
-margin_right = 167.694
-margin_bottom = 116.102
+margin_left = 15.5506
+margin_top = 37.6406
+margin_right = 160.551
+margin_bottom = 98.6406
 focus_mode = 2
 text = "Mazectric"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2x2" type="MenuButton" parent="menu"]
+margin_left = -1.29364
+margin_top = 107.703
+margin_right = 143.706
+margin_bottom = 168.703
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "2x2"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="34_live" type="MenuButton" parent="menu"]
+margin_left = 9.31824
+margin_top = 136.829
+margin_right = 154.318
+margin_bottom = 197.829
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "34_live"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="coagulations" type="MenuButton" parent="menu"]
+margin_left = 24.9861
+margin_top = 168.095
+margin_right = 169.986
+margin_bottom = 229.095
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "Coagulations"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="move" type="MenuButton" parent="menu"]
+margin_left = 1.96381
+margin_top = 194.815
+margin_right = 146.964
+margin_bottom = 255.815
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "Move"
 switch_on_hover = true
 __meta__ = {
 "_edit_use_anchors_": false

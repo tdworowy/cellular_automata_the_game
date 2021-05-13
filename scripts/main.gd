@@ -20,6 +20,15 @@ var rule: Dictionary
 onready var current_rule:Label = get_node("current_rule")
 onready var menu:Panel = get_node("menu")
 
+onready var game_of_live_button:MenuButton = get_node("menu/game of live")
+onready var mazectric_button:MenuButton = get_node("menu/mazectric")
+onready var amoeba_button:MenuButton = get_node("menu/amoeba")
+onready var twox2_button:MenuButton = get_node("menu/2x2")
+onready var live_34_button:MenuButton = get_node("menu/34_live")
+onready var coagulations_button:MenuButton = get_node("menu/coagulations")
+onready var move_button:MenuButton = get_node("menu/move")
+onready var walled_cities_button:MenuButton = get_node("menu/walled_cities")
+
 func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
 	var static_body = StaticBody.new()
 	var colision_shape = CollisionShape.new()
@@ -78,35 +87,35 @@ func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
 
 func check_rules_imput():
 	#TODO move it to menu
-	if Input.is_action_pressed("game_of_live"):
+	if game_of_live_button.pressed:
 		current_rule.set_text("Rule: game of live")
 		rule = cellular_automata.get_game_of_live_rules()
 	
-	if Input.is_action_pressed("mazectric"):
+	if mazectric_button.pressed:
 		current_rule.set_text("Rule: mazectric")
 		rule = cellular_automata.get_mazectric_rules()
 	
-	if Input.is_action_pressed("amoeba"):
+	if amoeba_button.pressed:
 		current_rule.set_text("Rule: amoeba")
 		rule = cellular_automata.get_amoeba_rules()
 		
-	if Input.is_action_pressed("2x2"):
+	if twox2_button.pressed:
 		current_rule.set_text("Rule: 2x2")
 		rule = cellular_automata.get_2x2_rules()
 		
-	if Input.is_action_pressed("34_live"):
+	if live_34_button.pressed:
 		current_rule.set_text("Rule: 34 live")
 		rule = cellular_automata.get_34_live_rules()
 	
-	if Input.is_action_pressed("coagulations"):
+	if coagulations_button.pressed:
 		current_rule.set_text("Rule: coagulations")
 		rule = cellular_automata.get_coagulations_rules()
 		
-	if Input.is_action_pressed("move"):
+	if move_button.pressed:
 		current_rule.set_text("Rule: move")
 		rule = cellular_automata.get_move_rules()
 	
-	if Input.is_action_pressed("walled_cities"):
+	if walled_cities_button.pressed:
 		current_rule.set_text("Rule: walled cities")
 		rule = cellular_automata.get_walled_cities_rules()
 		
@@ -114,8 +123,11 @@ func check_rules_imput():
 		if (menu.is_visible()):
 			# TODO add mouse to menu 
 			menu.visible = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 		else:
 			menu.visible = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
 
 func _ready():
 	rule = cellular_automata.get_game_of_live_rules()
