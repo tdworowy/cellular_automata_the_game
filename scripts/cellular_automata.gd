@@ -4,7 +4,6 @@ static func get_game_of_live_rules() -> Dictionary:
 			"1_3": 1,
 			"1_2": 1
 			}
-
 static func get_mazectric_rules() -> Dictionary:
 	return {
 		"0_3": 1,
@@ -13,7 +12,6 @@ static func get_mazectric_rules() -> Dictionary:
 		"1_3": 1,
 		"1_4": 1,
 		}
-
 static func get_amoeba_rules() -> Dictionary:
 	return {
 			"0_3": 1,
@@ -24,7 +22,6 @@ static func get_amoeba_rules() -> Dictionary:
 			"1_5": 1,
 			"1_8": 1
 		}
-		
 static func get_2x2_rules() -> Dictionary:
 	return {
 			"0_3": 1,
@@ -33,7 +30,6 @@ static func get_2x2_rules() -> Dictionary:
 			"1_2": 1,
 			"1_5": 1,
 		}
-		
 static func get_34_live_rules() -> Dictionary:
 	return {
 		"0_3": 1,
@@ -53,7 +49,6 @@ static func get_coagulations_rules() -> Dictionary:
 		"1_7": 1,
 		"1_8": 1,
 		}
-		
 static func get_move_rules() -> Dictionary:
 	return {
 		"0_3": 1,
@@ -63,7 +58,6 @@ static func get_move_rules() -> Dictionary:
 		"1_4": 1,
 		"1_5": 1,
 		}
-
 static func get_walled_cities_rules() -> Dictionary:
 	return {
 		"0_4": 1,
@@ -76,8 +70,8 @@ static func get_walled_cities_rules() -> Dictionary:
 		"1_4": 1,
 		"1_5": 1,
 }
-		
-static func generate_grid(x:int, z:int, prob_of_one:float):
+
+static func generate_grid(x: int, z: int, prob_of_one: float):
 		var grid = []
 		for i in range(x):
 			var row = []
@@ -91,7 +85,7 @@ static func generate_grid(x:int, z:int, prob_of_one:float):
 			grid.append(row)
 		return grid			
 
-static func count_colored_neighbours(x: int, z: int,grid_x_axis: int, grid_z_axis:int, grid:Array )->int:
+static func count_colored_neighbours(x: int, z: int,grid_x_axis: int, grid_z_axis: int, grid: Array )->int:
 	var colored_neighbours = 0
 	for i in range((x - 1) % grid_x_axis, (x + 2) % grid_x_axis):
 		for j in range((z - 1) % grid_z_axis, (z + 2) % grid_z_axis):
@@ -100,7 +94,7 @@ static func count_colored_neighbours(x: int, z: int,grid_x_axis: int, grid_z_axi
 	return colored_neighbours
 
 
-static func update_grid_two_d(grid: Array, grid_x_axis: int, grid_z_asix:int, rules: Dictionary):
+static func update_grid_two_d(grid: Array, grid_x_axis: int, grid_z_asix: int, rules: Dictionary):
 	var new_grid =  [] + grid
 	for i in range(grid.size()):
 		for j in range(grid[i].size()):

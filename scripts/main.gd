@@ -86,7 +86,6 @@ func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
 		z = z - (scale_z * 2)
 
 func check_rules_imput():
-	#TODO move it to menu
 	if game_of_live_button.pressed:
 		current_rule.set_text("Rule: game of live")
 		rule = cellular_automata.get_game_of_live_rules()
@@ -121,12 +120,13 @@ func check_rules_imput():
 		
 	if Input.is_action_pressed("menu"):
 		if (menu.is_visible()):
-			# TODO add mouse to menu 
 			menu.visible = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			menu.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 		
 
 func _ready():

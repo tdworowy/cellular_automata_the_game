@@ -1,18 +1,17 @@
 extends KinematicBody
 
-var moveSpeed:float = 40
+var move_speed:float = 40
 
-var minLookAngle:float = -90
-var maxlookAngle:float = 90
+var min_look_angle:float = -90
+var max_look_angle:float = 90
 var sensitivity:float = 7
 var velocity:Vector3 = Vector3()
-var mouseDelta: Vector2 = Vector2()
+var mouse_delta: Vector2 = Vector2()
 
-onready var camera :Camera = get_node("Camera")
+onready var camera: Camera = get_node("Camera")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
 
 func _physics_process(delta):
 	velocity.x = 0
@@ -37,19 +36,18 @@ func _physics_process(delta):
 	var up = global_transform.basis.y;
 	
 	var relativeDirection = (forward * input.y + right * input.x + input.z * up);
-	velocity.x = relativeDirection.x * moveSpeed
-	velocity.z = relativeDirection.z * moveSpeed
-	velocity.y = relativeDirection.y * moveSpeed	
+	velocity.x = relativeDirection.x * move_speed
+	velocity.z = relativeDirection.z * move_speed
+	velocity.y = relativeDirection.y * move_speed	
 	
 	velocity = move_and_slide(velocity, Vector3.UP);
 	
 func _process(delta):
-	camera.rotation_degrees.x -= mouseDelta.y*sensitivity*delta
-	
-	camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, minLookAngle,maxlookAngle)
-	rotation_degrees.y -= mouseDelta.x*sensitivity*delta
-	
-	mouseDelta = Vector2()
+	camera.rotation_degrees.x -= mouse_delta.y * sensitivity * delta
+	camera.rotation_degrees.x = clamp(camera.rotation_degrees.x, min_look_angle, max_look_angle)
+	rotation_degrees.y -= mouse_delta.x * sensitivity * delta
+	mouse_delta = Vector2()
+
 func _input(event):
 	if event is InputEventMouseMotion	:
-		mouseDelta = event.relative
+		mouse_delta = event.relative
