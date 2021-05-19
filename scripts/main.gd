@@ -2,9 +2,9 @@ extends Spatial
 
 var cellular_automata = load("res://scripts/cellular_automata.gd")
 
-const scale_x: int = 2
-const scale_z: int = 2
-const scale_y: int = 3
+var scale_x: float = 2.0
+var scale_z: float = 2.0
+var scale_y: float = 3.0
 const red = Color( 1, 0, 0, 1 )
 
 var floor_scale_x: int
@@ -130,14 +130,23 @@ func check_rules_imput():
 		
 
 func _ready():
+	var config = ConfigFile.new()
+	config.load("settings.cfg")
+	#TODO FIX
+	scale_x = float(config.get_value("env","box_length"))
+	scale_z = float(config.get_value("env","box_width"))
+	$floor.scale.x = int(config.get_value("env","floor_length"))
+	$floor.scale.z = int(config.get_value("env","floor_width"))
+	floor_scale_x = $floor.scale.x
+	floor_scale_z = $floor.scale.z
+	
 	rule = cellular_automata.get_game_of_live_rules()
 	current_rule.set_text("Rule: game of live")
 	
 	material = SpatialMaterial.new()
 	material.albedo_color = red
 	
-	floor_scale_x = $floor.scale.x
-	floor_scale_z = $floor.scale.z
+
 
 	grid_x = floor_scale_x/scale_x
 	grid_z = floor_scale_z/scale_z
