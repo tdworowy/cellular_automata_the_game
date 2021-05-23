@@ -43,13 +43,26 @@ visible = false
 margin_left = 423.0
 margin_top = 23.0
 margin_right = 610.0
-margin_bottom = 340.0
+margin_bottom = 391.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="snowflake" type="MenuButton" parent="menu"]
+margin_left = 25.0
+margin_top = 260.0
+margin_right = 159.154
+margin_bottom = 321.0
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "Snowflake"
+switch_on_hover = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="walled_cities" type="MenuButton" parent="menu"]
-margin_left = 24.9501
+margin_left = 25.0
 margin_top = 227.337
 margin_right = 169.95
 margin_bottom = 288.337

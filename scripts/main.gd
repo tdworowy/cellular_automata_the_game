@@ -19,6 +19,7 @@ var rule: Dictionary
 
 onready var current_rule:Label = get_node("current_rule")
 onready var menu:Panel = get_node("menu")
+onready var floor_:StaticBody = get_node("floor")
 
 onready var game_of_live_button:MenuButton = get_node("menu/game of live")
 onready var mazectric_button:MenuButton = get_node("menu/mazectric")
@@ -28,6 +29,7 @@ onready var live_34_button:MenuButton = get_node("menu/34_live")
 onready var coagulations_button:MenuButton = get_node("menu/coagulations")
 onready var move_button:MenuButton = get_node("menu/move")
 onready var walled_cities_button:MenuButton = get_node("menu/walled_cities")
+onready var snowflake_button:MenuButton = get_node("menu/snowflake")
 
 func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
 	var static_body = StaticBody.new()
@@ -89,22 +91,27 @@ func check_rules_imput():
 	if game_of_live_button.pressed:
 		current_rule.set_text("Rule: game of live")
 		rule = cellular_automata.get_game_of_live_rules()
+		game_of_live_button.pressed = false
 	
 	if mazectric_button.pressed:
 		current_rule.set_text("Rule: mazectric")
 		rule = cellular_automata.get_mazectric_rules()
+		mazectric_button.pressed = false
 	
 	if amoeba_button.pressed:
 		current_rule.set_text("Rule: amoeba")
 		rule = cellular_automata.get_amoeba_rules()
+		amoeba_button.pressed = false
 		
 	if twox2_button.pressed:
 		current_rule.set_text("Rule: 2x2")
 		rule = cellular_automata.get_2x2_rules()
+		twox2_button.pressed = false
 		
 	if live_34_button.pressed:
 		current_rule.set_text("Rule: 34 live")
 		rule = cellular_automata.get_34_live_rules()
+		live_34_button.pressed = false
 	
 	if coagulations_button.pressed:
 		current_rule.set_text("Rule: coagulations")
@@ -113,10 +120,19 @@ func check_rules_imput():
 	if move_button.pressed:
 		current_rule.set_text("Rule: move")
 		rule = cellular_automata.get_move_rules()
+		move_button.pressed = false
 	
 	if walled_cities_button.pressed:
 		current_rule.set_text("Rule: walled cities")
 		rule = cellular_automata.get_walled_cities_rules()
+		walled_cities_button.pressed = false
+		
+	if snowflake_button.pressed:
+		#TODO fix fnowflake 
+		var snowflake_rule:Array = [1]
+		current_rule.set_text("Rule: Snowflake "+ str(snowflake_rule))
+		rule = cellular_automata.generate_snowflake_rule(snowflake_rule)
+		snowflake_button.pressed = false
 		
 	if Input.is_action_pressed("menu"):
 		if (menu.is_visible()):
@@ -132,14 +148,14 @@ func check_rules_imput():
 func _ready():
 	var config = ConfigFile.new()
 	config.load("settings.cfg")
-	#TODO FIX
+	
 	scale_x = float(config.get_value("env","box_length"))
 	scale_z = float(config.get_value("env","box_width"))
-	$floor.scale.x = int(config.get_value("env","floor_length"))
-	$floor.scale.z = int(config.get_value("env","floor_width"))
-	floor_scale_x = $floor.scale.x
-	floor_scale_z = $floor.scale.z
-	
+	floor_scale_x = int(config.get_value("env","floor_length"))
+	floor_scale_z = int(config.get_value("env","floor_width"))
+	floor_.scale.x = floor_scale_x
+	floor_.scale.z = floor_scale_z
+		
 	rule = cellular_automata.get_game_of_live_rules()
 	current_rule.set_text("Rule: game of live")
 	

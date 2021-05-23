@@ -70,6 +70,18 @@ static func get_walled_cities_rules() -> Dictionary:
 		"1_4": 1,
 		"1_5": 1,
 }
+static func generate_snowflake_rule(neighbours_numbers: Array = [1])->Dictionary:
+	var snowflake_rules = {}
+
+	for neighbours_number in neighbours_numbers:
+		snowflake_rules["0"+"_"+ str(neighbours_number)] = 1
+		snowflake_rules["1" +"_"+ str(neighbours_number)] = 1
+	for i in range(9):
+		if !(i in neighbours_numbers):
+			snowflake_rules["0"+"_"+ str(i)] = 0
+			snowflake_rules["1" +"_"+ str(i)] = 1
+
+	return snowflake_rules
 
 static func generate_grid(x: int, z: int, prob_of_one: float):
 		var grid = []
