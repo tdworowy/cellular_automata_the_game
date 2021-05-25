@@ -6,9 +6,9 @@ var min_look_angle:float = -90
 var max_look_angle:float = 90
 var sensitivity:float = 7
 var velocity:Vector3 = Vector3()
-var mouse_delta: Vector2 = Vector2()
+var mouse_delta:Vector2 = Vector2()
 
-onready var camera: Camera = get_node("Camera")
+onready var camera:Camera = get_node("Camera")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

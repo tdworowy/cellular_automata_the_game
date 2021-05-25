@@ -2,20 +2,20 @@ extends Spatial
 
 var cellular_automata = load("res://scripts/cellular_automata_2d.gd")
 
-var scale_x: float = 2.0
-var scale_z: float = 2.0
-var scale_y: float = 3.0
+var scale_x:float = 2.0
+var scale_z:float = 2.0
+var scale_y:float = 3.0
 const red = Color( 1, 0, 0, 1 )
 
-var floor_scale_x: int
-var floor_scale_z: int
+var floor_scale_x:int
+var floor_scale_z:int
 
-var grid_x: int
-var grid_z: int
+var grid_x:int
+var grid_z:int
 
-var material: SpatialMaterial
-var grid: Array
-var rule: Dictionary
+var material:SpatialMaterial
+var grid:Array
+var rule:Dictionary
 
 onready var current_rule:Label = get_node("current_rule")
 onready var menu:Panel = get_node("menu")
@@ -152,6 +152,7 @@ func check_rules_imput():
 	
 	if pause_button.pressed:
 		 play = !play
+		 pause_button.pressed = false
 			
 
 func _ready():
@@ -193,3 +194,4 @@ func _on_Timer_timeout():
 			rule)
 			set_visibility(new_grid, floor_scale_x, floor_scale_z)
 			grid = new_grid
+			

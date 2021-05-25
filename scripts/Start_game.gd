@@ -1,9 +1,9 @@
 extends Button
 
-onready var box_x = get_node("../boxes_properties/box_x")
-onready var box_z = get_node("../boxes_properties/box_z")
-onready var floor_x = get_node("../floor_properties/floor_x")
-onready var floor_z = get_node("../floor_properties/floor_z")
+onready var box_x:LineEdit = get_node("../boxes_properties/box_x")
+onready var box_z:LineEdit = get_node("../boxes_properties/box_z")
+onready var floor_x:LineEdit = get_node("../floor_properties/floor_x")
+onready var floor_z:LineEdit = get_node("../floor_properties/floor_z")
 
 
 func load_level(config):
