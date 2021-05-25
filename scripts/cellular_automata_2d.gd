@@ -113,7 +113,7 @@ static func count_colored_neighbours(x: int, z: int, grid_x_axis: int, grid_z_ax
 	var colored_neighbours = 0
 	for i in range((x - 1) % grid_x_axis, (x + 2) % grid_x_axis):
 		for j in range((z - 1) % grid_z_axis, (z + 2) % grid_z_axis):
-			if grid[i][j] == 1 and [i, j] != [x, z]: 
+			if grid[i][j] == 1 and i != x and j != z: 
 				colored_neighbours += 1
 	return colored_neighbours
 

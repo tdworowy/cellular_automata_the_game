@@ -88,6 +88,7 @@ func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
 			if value == 1 and !visibility:
 				node.visible = true
 				node.get_children()[0].disabled = false 
+
 			x = x - (scale_x * 2)
 		x = floor_scale_x
 		z = z - (scale_z * 2)
@@ -171,8 +172,6 @@ func _ready():
 	material = SpatialMaterial.new()
 	material.albedo_color = red
 	
-
-
 	grid_x = floor_scale_x/scale_x
 	grid_z = floor_scale_z/scale_z
 	
@@ -186,7 +185,6 @@ func _ready():
 
 func _process(delta):
 	check_rules_imput()
-	
 	
 
 func _on_Timer_timeout():
