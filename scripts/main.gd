@@ -1,6 +1,6 @@
 extends Spatial
 
-var cellular_automata = load("res://scripts/cellular_automata.gd")
+var cellular_automata = load("res://scripts/cellular_automata_2d.gd")
 
 var scale_x: float = 2.0
 var scale_z: float = 2.0
@@ -30,6 +30,11 @@ onready var coagulations_button:MenuButton = get_node("menu/coagulations")
 onready var move_button:MenuButton = get_node("menu/move")
 onready var walled_cities_button:MenuButton = get_node("menu/walled_cities")
 onready var snowflake_button:MenuButton = get_node("menu/snowflake")
+
+onready var pause_button:MenuButton = get_node("menu/pause")
+
+
+var play:bool = false
 
 func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
 	var static_body = StaticBody.new()
@@ -143,7 +148,10 @@ func check_rules_imput():
 			menu.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-		
+	
+	if pause_button.pressed:
+		 play = !play
+			
 
 func _ready():
 	var config = ConfigFile.new()
@@ -156,8 +164,9 @@ func _ready():
 	floor_.scale.x = floor_scale_x
 	floor_.scale.z = floor_scale_z
 		
-	rule = cellular_automata.get_game_of_live_rules()
-	current_rule.set_text("Rule: game of live")
+	var snowflake_rule:Array = [1]
+	current_rule.set_text("Rule: Snowflake "+ str(snowflake_rule))
+	rule = cellular_automata.generate_snowflake_rule(snowflake_rule)
 	
 	material = SpatialMaterial.new()
 	material.albedo_color = red
@@ -167,7 +176,11 @@ func _ready():
 	grid_x = floor_scale_x/scale_x
 	grid_z = floor_scale_z/scale_z
 	
-	grid = cellular_automata.generate_grid(grid_x, grid_z, 0.1)
+	if (config.get_value("env","state") == "random"):
+		grid = cellular_automata.generate_grid_random(grid_x, grid_z, 0.1)
+	if (config.get_value("env","state") == "center"):
+		grid = cellular_automata.generate_grid_center(grid_x, grid_z)
+	
 	generate_boxes(grid, floor_scale_x, floor_scale_z, material)
 	set_visibility(grid, floor_scale_x, floor_scale_z)
 
@@ -177,7 +190,8 @@ func _process(delta):
 	
 
 func _on_Timer_timeout():
-		var new_grid = cellular_automata.update_grid_two_d(grid, grid_x, grid_z, 
-		rule)
-		set_visibility(new_grid, floor_scale_x, floor_scale_z)
-		grid = new_grid
+		if play:
+			var new_grid = cellular_automata.update_grid(grid, grid_x, grid_z, 
+			rule)
+			set_visibility(new_grid, floor_scale_x, floor_scale_z)
+			grid = new_grid

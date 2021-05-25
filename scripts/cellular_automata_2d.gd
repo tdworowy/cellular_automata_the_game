@@ -83,7 +83,7 @@ static func generate_snowflake_rule(neighbours_numbers: Array = [1])->Dictionary
 
 	return snowflake_rules
 
-static func generate_grid(x: int, z: int, prob_of_one: float):
+static func generate_grid_random(x: int, z: int, prob_of_one: float):
 		var grid = []
 		for i in range(x):
 			var row = []
@@ -97,7 +97,19 @@ static func generate_grid(x: int, z: int, prob_of_one: float):
 			grid.append(row)
 		return grid			
 
-static func count_colored_neighbours(x: int, z: int,grid_x_axis: int, grid_z_axis: int, grid: Array )->int:
+static func generate_grid_center(x: int, z: int):
+		var grid = []
+		for i in range(x):
+			var row = []
+			for j in range(z):
+				if (i == x/2 and j == z/2):
+					row.append(1)
+				else:
+					row.append(0)
+			grid.append(row)
+		return grid	
+
+static func count_colored_neighbours(x: int, z: int, grid_x_axis: int, grid_z_axis: int, grid: Array )->int:
 	var colored_neighbours = 0
 	for i in range((x - 1) % grid_x_axis, (x + 2) % grid_x_axis):
 		for j in range((z - 1) % grid_z_axis, (z + 2) % grid_z_axis):
@@ -106,11 +118,11 @@ static func count_colored_neighbours(x: int, z: int,grid_x_axis: int, grid_z_axi
 	return colored_neighbours
 
 
-static func update_grid_two_d(grid: Array, grid_x_axis: int, grid_z_asix: int, rules: Dictionary):
+static func update_grid(grid: Array, grid_x_axis: int, grid_z_asix: int, rules: Dictionary):
 	var new_grid =  [] + grid
 	for i in range(grid.size()):
 		for j in range(grid[i].size()):
 			var state = grid[i][j]
-			var live_neighbours = count_colored_neighbours(i, j,grid_x_axis, grid_z_asix, grid)
+			var live_neighbours = count_colored_neighbours(i, j, grid_x_axis, grid_z_asix, grid)
 			new_grid[i][j] = rules.get(str(state) +'_' + str(live_neighbours),0) 
 	return new_grid

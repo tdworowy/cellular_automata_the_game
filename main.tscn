@@ -40,18 +40,18 @@ __meta__ = {
 
 [node name="menu" type="Panel" parent="."]
 visible = false
-margin_left = 423.0
+margin_left = 422.0
 margin_top = 23.0
-margin_right = 610.0
+margin_right = 756.0
 margin_bottom = 391.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="snowflake" type="MenuButton" parent="menu"]
-margin_left = 25.0
+margin_left = 19.1138
 margin_top = 260.0
-margin_right = 159.154
+margin_right = 153.268
 margin_bottom = 321.0
 rect_pivot_offset = Vector2( -680.134, -9.34241 )
 focus_mode = 2
@@ -61,11 +61,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="pause" type="MenuButton" parent="menu"]
+margin_left = 125.907
+margin_top = 3.52725
+margin_right = 260.061
+margin_bottom = 64.5273
+rect_pivot_offset = Vector2( -680.134, -9.34241 )
+focus_mode = 2
+text = "Pause"
+switch_on_hover = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="walled_cities" type="MenuButton" parent="menu"]
-margin_left = 25.0
-margin_top = 227.337
-margin_right = 169.95
-margin_bottom = 288.337
+margin_left = 28.0
+margin_top = 227.0
+margin_right = 173.0
+margin_bottom = 287.0
 rect_pivot_offset = Vector2( -680.134, -9.34241 )
 focus_mode = 2
 text = "Walled cities"
