@@ -119,7 +119,7 @@ static func count_colored_neighbours(x:int, z:int, grid_x_axis:int, grid_z_axis:
 
 
 static func update_grid(grid:Array, grid_x_axis:int, grid_z_asix:int, rules:Dictionary):
-	var new_grid =  [] + grid
+	var new_grid = grid.duplicate(true)
 	for i in range(grid.size()):
 		for j in range(grid[i].size()):
 			var state = grid[i][j]
