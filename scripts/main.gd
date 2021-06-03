@@ -1,6 +1,8 @@
 extends Spatial
 
 var cellular_automata = load("res://scripts/cellular_automata_2d.gd")
+var Utils =  load("res://scripts/utils.gd")
+var utils = null
 
 var scale_x:float = 2.0
 var scale_z:float = 2.0
@@ -36,63 +38,6 @@ onready var pause_button:MenuButton = get_node("menu/pause")
 
 
 var play:bool = false
-
-func generate_box(material:SpatialMaterial, x:int=1, y:int=1, z:int=1):
-	var static_body = StaticBody.new()
-	var colision_shape = CollisionShape.new()
-	var box = CSGBox.new() 
-	
-	static_body.scale.x = scale_x 
-	static_body.scale.y = scale_y
-	static_body.scale.z = scale_z
-	
-	static_body.translation.x = x
-	static_body.translation.y = y
-	static_body.translation.z = z
-		
-	box.material = material
-	
-	colision_shape.set_shape(BoxShape.new())
-	colision_shape.add_child(box)
-	static_body.add_child(colision_shape)
-	
-	static_body.add_to_group(str(x)+"_"+str(z))
-	
-	return static_body
-
-func generate_boxes(grid:Array, floor_scale_x:int, floor_scale_z:int, material):
-	var x = floor_scale_x
-	var z = floor_scale_z
-	for row in grid:
-		for value in row:
-			var box = generate_box(material, x, 3, z)
-			self.add_child(box)
-			x = x - (scale_x * 2)
-		x = floor_scale_x
-		z = z - (scale_z * 2)
-		
-func set_visibility(grid:Array, floor_scale_x:int, floor_scale_z:int):
-	var x = floor_scale_x
-	var z = floor_scale_z
-	var node
-	var visibility
-	 
-	for row in grid:
-		for value in row:
-			node = get_tree().get_nodes_in_group(str(x)+"_"+str(z))[0]
-			visibility = node.is_visible()
-			
-			if value == 0 and visibility:
-				node.visible = false
-				node.get_children()[0].disabled = true 
-			
-			if value == 1 and !visibility:
-				node.visible = true
-				node.get_children()[0].disabled = false 
-
-			x = x - (scale_x * 2)
-		x = floor_scale_x
-		z = z - (scale_z * 2)
 
 func check_rules_imput():
 	if game_of_live_button.pressed:
@@ -159,6 +104,7 @@ func check_rules_imput():
 func _ready():
 	var config = ConfigFile.new()
 	config.load("settings.cfg")
+	utils = Utils.new(self, scale_x, scale_y, scale_z)
 	
 	scale_x = float(config.get_value("env","box_length"))
 	scale_z = float(config.get_value("env","box_width"))
@@ -182,8 +128,8 @@ func _ready():
 	if (config.get_value("env","state") == "center"):
 		grid = cellular_automata.generate_grid_center(grid_x, grid_z)
 	
-	generate_boxes(grid, floor_scale_x, floor_scale_z, material)
-	set_visibility(grid, floor_scale_x, floor_scale_z)
+	utils.generate_boxes(grid, floor_scale_x, floor_scale_z, material)
+	utils.set_visibility(grid, floor_scale_x, floor_scale_z)
 
 func _process(delta):
 	check_rules_imput()
@@ -193,6 +139,6 @@ func _on_Timer_timeout():
 		if play:
 			var new_grid = cellular_automata.update_grid(grid, grid_x, grid_z, 
 			rule)
-			set_visibility(new_grid, floor_scale_x, floor_scale_z)
+			utils.set_visibility(new_grid, floor_scale_x, floor_scale_z)
 			grid = new_grid
 			
