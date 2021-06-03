@@ -19,6 +19,8 @@ var material:SpatialMaterial
 var grid:Array
 var rule:Dictionary
 
+var menu_visible = false
+
 onready var current_rule:Label = get_node("current_rule")
 onready var menu:Panel = get_node("menu")
 onready var floor_:StaticBody = get_node("floor")
@@ -84,16 +86,6 @@ func check_rules_imput():
 		current_rule.set_text("Rule: Snowflake "+ str(snowflake_rule))
 		rule = cellular_automata.generate_snowflake_rule(snowflake_rule)
 		snowflake_button.pressed = false
-		
-	if Input.is_action_pressed("menu"):
-		if (menu.is_visible()):
-			menu.visible = false
-			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			menu.visible = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
 	if pause_button.pressed:
 		play = !play
@@ -131,9 +123,21 @@ func _ready():
 	utils.generate_boxes(grid, floor_scale_x, floor_scale_z, material)
 	utils.set_visibility(grid, floor_scale_x, floor_scale_z)
 
+func _input(ev):
+	if ev is InputEventKey and Input.is_action_pressed("menu"):
+		if (menu_visible):
+			menu.visible = false
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		if (!menu_visible):
+			menu.visible = true
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+		
+		menu_visible = !menu_visible
+
 func _process(delta):
-	check_rules_imput()
-	
+	check_rules_imput()	
 
 func _on_Timer_timeout():
 		if play:
@@ -142,3 +146,4 @@ func _on_Timer_timeout():
 			utils.set_visibility(new_grid, floor_scale_x, floor_scale_z)
 			grid = new_grid
 			
+
