@@ -30,6 +30,7 @@ onready var coagulations_button:MenuButton = get_node("menu/coagulations")
 onready var move_button:MenuButton = get_node("menu/move")
 onready var walled_cities_button:MenuButton = get_node("menu/walled_cities")
 onready var snowflake_button:MenuButton = get_node("menu/snowflake")
+onready var snowflake_rule_line_edit:LineEdit = get_node("menu/snowflake_rule")
 
 onready var pause_button:MenuButton = get_node("menu/pause")
 
@@ -134,7 +135,7 @@ func check_rules_imput():
 		walled_cities_button.pressed = false
 		
 	if snowflake_button.pressed:
-		var snowflake_rule:Array = [1,3,5]
+		var snowflake_rule:Array = snowflake_rule_line_edit.text.split_floats(',')
 		current_rule.set_text("Rule: Snowflake "+ str(snowflake_rule))
 		rule = cellular_automata.generate_snowflake_rule(snowflake_rule)
 		snowflake_button.pressed = false
@@ -150,8 +151,9 @@ func check_rules_imput():
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
 	if pause_button.pressed:
-		 play = !play
-		 pause_button.pressed = false
+		play = !play
+		print("Pause:" + str(!play)) 
+		pause_button.pressed = false
 			
 
 func _ready():
@@ -165,7 +167,7 @@ func _ready():
 	floor_.scale.x = floor_scale_x
 	floor_.scale.z = floor_scale_z
 		
-	var snowflake_rule:Array = [1,3,5]
+	var snowflake_rule:Array = snowflake_rule_line_edit.text.split_floats(',')
 	current_rule.set_text("Rule: Snowflake "+ str(snowflake_rule))
 	rule = cellular_automata.generate_snowflake_rule(snowflake_rule)
 	
