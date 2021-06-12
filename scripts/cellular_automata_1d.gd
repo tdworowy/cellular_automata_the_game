@@ -19,18 +19,16 @@ static func wolfram_number_to_bin(wolfram_number: int, possible_states: int, col
 	wolfram_number_s = "0" * temp + wolfram_number_s
 	return wolfram_number_s.split("", true).invert()
 
-static func product(a:Array, repeat:int = 1) -> Array:
-	#TODO implement it
-	return []
-
 static func generate_rule(wolfram_number: int, neighborhood_size: int = 3, colours: Array = [0, 1]) -> Array:
+	var Utils =  load("res://scripts/utils.gd")
+	
 	var colours_count = len(colours)
 	var possible_states =  pow(colours_count, neighborhood_size)
 	var rule = []
 
 	var wolfram_number_a = wolfram_number_to_bin(wolfram_number, possible_states, colours_count)
 	var i = 0
-	for comb in product(colours, neighborhood_size):
+	for comb in Utils.product(colours, neighborhood_size):
 		rule.append(RuleSegment.new(comb, int(wolfram_number_a[i])))
 		i +=1
 	return rule

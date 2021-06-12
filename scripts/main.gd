@@ -1,7 +1,7 @@
 extends Spatial
 
 var cellular_automata = load("res://scripts/cellular_automata_2d.gd")
-var Utils =  load("res://scripts/utils.gd")
+var Utils =  load("res://scripts/godot_utils.gd")
 var utils = null
 
 var scale_x:float = 2.0
