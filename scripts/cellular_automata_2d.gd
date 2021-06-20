@@ -83,11 +83,11 @@ static func generate_snowflake_rule(neighbours_numbers:Array = [1]) -> Dictionar
 
 	return snowflake_rules
 
-static func generate_grid_random(x:int, z:int, prob_of_one:float):
+static func generate_grid_random(hight:int, width:int, prob_of_one:float) -> Array:
 		var grid = []
-		for i in range(x):
+		for i in range(hight):
 			var row = []
-			for j in range(z):
+			for j in range(width):
 				randomize()
 				var rand_int = (randi() % 10)  + 1 
 				if rand_int <= int(prob_of_one * 10):
@@ -97,12 +97,12 @@ static func generate_grid_random(x:int, z:int, prob_of_one:float):
 			grid.append(row)
 		return grid			
 
-static func generate_grid_center(x:int, z:int):
+static func generate_grid_center(hight:int, width:int) -> Array:
 		var grid = []
-		for i in range(x):
+		for i in range(hight):
 			var row = []
-			for j in range(z):
-				if (i == x/2 and j == z/2):
+			for j in range(width):
+				if (i == hight/2 and j == width/2):
 					row.append(1)
 				else:
 					row.append(0)
@@ -118,7 +118,7 @@ static func count_colored_neighbours(x:int, z:int, grid_x_axis:int, grid_z_axis:
 	return colored_neighbours
 
 
-static func update_grid(grid:Array, grid_x_axis:int, grid_z_asix:int, rules:Dictionary):
+static func update_grid(grid:Array, grid_x_axis:int, grid_z_asix:int, rules:Dictionary) -> Array:
 	var new_grid = grid.duplicate(true)
 	for i in range(grid.size()):
 		for j in range(grid[i].size()):

@@ -14,7 +14,7 @@ func load_level(config):
 	config.set_value("env","floor_width", floor_z.text)
 	config.save("settings.cfg")
 
-	get_tree().change_scene("res://main.tscn")
+	get_tree().change_scene("res://main2D.tscn")
 	
 func _ready():
 	var config = ConfigFile.new()

@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/main1D.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.168627, 0.160784, 0.207843, 1 )
+
+[node name="Main1D" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="floor" type="StaticBody" parent="."]
+transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="floor"]
+shape = SubResource( 2 )
+
+[node name="CSGBox" type="CSGBox" parent="floor/CollisionShape"]
+material = SubResource( 3 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105713, 8.21006, 1.32788 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="current_rule" type="Label" parent="."]
+margin_left = 851.0
+margin_top = 15.0
+margin_right = 1002.0
+margin_bottom = 59.0
+custom_colors/font_color = Color( 0.811765, 0.168627, 0.364706, 1 )
+text = "TEST"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="Panel" parent="."]
+visible = false
+margin_left = 422.0
+margin_top = 23.0
+margin_right = 756.0
+margin_bottom = 466.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause" type="MenuButton" parent="menu"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Pause"
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
