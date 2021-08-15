@@ -8,6 +8,7 @@ func n_nary(number: int, n: int) -> String:
 			return '0'
 		var nums = []
 		while number:
+			number, r = divmod(number, n) #TODO make it work
 			nums.append(str(number % n))
 		return nums.invert().join("")
 
