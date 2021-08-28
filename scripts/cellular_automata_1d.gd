@@ -34,6 +34,7 @@ func generate_rule(wolfram_number: int, neighborhood_size: int = 3, colours: Arr
 func cellular_automata_step_1d(input_list: Array, rules: Array) -> Array:
 		var output_list = []
 		var width = len(input_list[0])
+		var rule_found = false
 
 		for i in range(len(input_list)):
 			for rule in rules:
@@ -46,8 +47,10 @@ func cellular_automata_step_1d(input_list: Array, rules: Array) -> Array:
 
 				if current_neighborhood == rule.neighborhood:
 					output_list.append(rule.type)
-				else:
+					rule_found = true 
+			if !rule_found:
 					output_list.append(0)
+					rule_found = false
 		
 		return output_list
 		
